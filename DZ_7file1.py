@@ -1,79 +1,31 @@
 import os
 
 def book_reading():
-    cook_book = {}
-    file_book = os.path.join(os.getcwd(), "recipes.txt")
-    with open(file_book, "r", encoding="utf-8") as f:
-        for line in f:
-            name_dish = line.strip()
-            count = int(f.readline())
-            ing_list = []
-            for elem in range(count):
-                ingr = f.readline().strip()
-                split_ing = ingr.split(" | ")
-                ings = {}
-                ings['ingredient_name'] = split_ing[0]
-                ings['quantity'] = int(split_ing[1])
-                ings['measure'] = split_ing[2]
-                ing_list.append(ings)
-            f.readline().strip()
-            cook_book[name_dish]=ing_list
-    return cook_book
+  cook_book = {}
+  file_book = os.path.join(os.getcwd(), "recipes.txt")
+  with open(file_book, "r", encoding="utf-8") as f:
+    for line in f:
+      name_dish = line.strip()
+      count = int(f.readline())
+      ing_list = []
+      for elem in range(count):
+        ingr = f.readline().strip()
+        split_ing = ingr.split(" | ")
+        ings = {}
+        ings['ingredient_name'] = split_ing[0]
+        ings['quantity'] = int(split_ing[1])
+        ings['measure'] = split_ing[2]
+        ing_list.append(ings)
+      f.readline().strip()
+      cook_book[name_dish] = ing_list
+  return cook_book
 
-#
-# print(book_reading())
-
-# def book_creation(recipes):
-#   dishes = []
-#   with open("book_recipec.txt", "w", encoding="utf-8") as f:
-#     for dish, ingredients in recipes.items():
-#       dishes.append(dish)
-#       f.write(f"{dish}\n")
-#       f.write(f"{len(ingredients)}\n")
-#       i = 0
-#       while i!=len(ingredients):
-#         f.write(f'{ingredients[i]["ingredient_name"]} | {ingredients[i]["quantity"]} | {ingredients[i]["measure"]}\n')
-#         i+=1
-#       f.write("\n")
-        # if i==len(ingredients):
-        #   print("---------------")
-      # for one_ing in ingredients[0].values():
-      #   f.write(f"{one_ing}\n")
-        # for i in one_ing.values():
-          # f.write(f"{i}\n")
-
-    # return dishes
-
-# def get_shop_list_by_dishes(dishes):
-#   ingredients = {}
-#   i=0
-#   for dish, ings in cook_book.items():
-#     if dish == dishes[i]:
-#       # print(ing)
-#       j=0
-#       amount_ings = {}
-#       while j != len(ings):
-#         ings[j]["quantity"] *= 2
-#         # print(ings)
-#         for val in ings[j].items():
-#           print(v)
-#         #   # print(k,v)
-#         #   amount_ings["quantity"] = v
-#         #   amount
-#
-#
-#         j+=1
-#       i+=1
-#   print(ingredients)
-#
-# get_shop_list_by_dishes(lst)
 
 def get_shop_list_by_dishes(dishes, count_person):
   ingredients = dict()
   for name_dish in dishes:
     if name_dish in book_reading():
       for ings in book_reading()[name_dish]:
-
         amount_ings = dict()
         if ings['ingredient_name'] not in ingredients:
           amount_ings['quantity'] = ings['quantity'] * count_person
@@ -83,8 +35,7 @@ def get_shop_list_by_dishes(dishes, count_person):
           ingredients[ings['ingredient_name']]['quantity'] += ings['quantity'] * count_person
     else:
       print("Данного блюда нет в книге")
-
-#
+  return ingredients
 
 
 def sorting():
@@ -106,7 +57,6 @@ def sorting():
     f3_lst = f3.readlines()
     files_lst[file3] = f3_lst
 
-  # print(files_lst)
   sort_val_lst = sorted(files_lst.values(), reverse=True)
   sort_files_list = {}
   for v in sort_val_lst:
@@ -120,7 +70,9 @@ def sorting():
       f4.write(f"{len(val)}\n")
       f4.writelines(val)
       f4.write("\n")
-  return
-print(book_reading())
-get_shop_list_by_dishes(["Омлет", "Запеченный картофель"], 4)
+
+  return file4
+
+# print(book_reading())
+print(get_shop_list_by_dishes(book_reading(), 4))
 sorting()
